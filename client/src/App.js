@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+// Replace this with your Elastic Beanstalk URL
+const API_URL = "http://your-elasticbeanstalk-url.amazonaws.com";
+
 function App() {
   const [form, setForm] = useState({ name: "", age: "", course: "" });
   const [search, setSearch] = useState("");
@@ -14,7 +17,7 @@ function App() {
   // Add student
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:5000/students", form);
+    await axios.post(`${API_URL}/students`, form);
     setForm({ name: "", age: "", course: "" });
     alert("Student added successfully!");
   };
@@ -27,7 +30,7 @@ function App() {
       return;
     }
 
-    const res = await axios.get(`http://localhost:5000/students?name=${e.target.value}`);
+    const res = await axios.get(`${API_URL}/students?name=${e.target.value}`);
     setSearchResults(res.data);
   };
 
